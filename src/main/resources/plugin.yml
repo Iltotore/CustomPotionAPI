@@ -1,0 +1,10 @@
+name: CustomPotion
+main: fr.il_totore.custompotion.plugin.CustomPotionPlugin
+version: 1.0-SNAPSHOT
+api-version: "1.14"
+authors:
+  - RedsTom
+  - Il_totore
+commands:
+  customeffect:
+    description: Give custom effect

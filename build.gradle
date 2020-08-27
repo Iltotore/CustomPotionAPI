@@ -1,0 +1,40 @@
+import fr.il_totore.task.spigot.SpigotClearPluginsTask
+
+plugins {
+    id 'java'
+    id 'com.github.johnrengelman.shadow' version '5.1.0'
+}
+
+group 'fr.il_totore'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+    maven { url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/' }
+    maven { url = 'https://oss.sonatype.org/content/repositories/snapshots' }
+    maven { url = 'https://raw.githubusercontent.com/Iltotore/maven/master/'}
+    maven { url= 'https://jitpack.io'}
+}
+
+dependencies {
+    compileOnly 'org.spigotmc:spigot-api:1.14.4-R0.1-SNAPSHOT'
+    compile 'fr.il_totore:spigotmetadataapi:4.0-SNAPSHOT'
+    compile 'com.github.iltotore:itemdatalib:0.1'
+}
+
+shadowJar {
+    configurations = [project.configurations.compile]
+}
+
+task copyPlugin(type: Copy){
+    from new File(buildDir, "libs")
+    into file("../SpigotTest/plugins")
+}
+
+task clearPlugins(type: SpigotClearPluginsTask){
+    pluginDir = file('../SpigotTest/plugins')
+    whitelist = ['ViaVersion.jar', 'PlugMan.jar', 'Debugger.jar']
+}
